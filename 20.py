@@ -1,46 +1,40 @@
-# Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
-
 class Solution:
-    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
-        root = None
-        node = None
+    def isValid(self, s: str) -> bool:
+        if len(s) % 2 != 0:
+            return False
 
-        while not (l1 == None and l2 == None):
-            v = None
-            if l1 == None:
-                v = l2.val
-                l2 = l2.next
-            elif l2 == None:
-                v = l1.val
-                l1 = l1.next
-            elif l1.val <= l2.val:
-                v = l1.val
-                l1 = l1.next
+        stack = {
+            "(" : [],
+            "[" : [],
+            "{" : [],
+        }
+
+        for i in range(len(s)):
+            if s[i] == "(" or s[i] == "[" or s[i] == "{":
+                stack[s[i]].append(i)
             else:
-                v = l2.val
-                l2 = l2.next
+                find = "("
+                if s[i] == "]":
+                    find = "["
+                if s[i] == "}":
+                    find = "{"
 
-            if root == None:
-                root = ListNode(v)
-                node = root
-            else:
-                node.next = ListNode(v)
-                node = node.next
+                if len(stack[find]) == 0:
+                    return False
 
-        return root
+                j = stack[find].pop()
+                if (i - j) % 2 == 0:
+                    return False
 
-x = Solution()
+        if len(stack["("]) > 0 or len(stack["["]) > 0 or len(stack["{"]) > 0:
+            return False
 
-l1 = ListNode(1)
-l1.next = ListNode(2)
-l1.next.next = ListNode(4)
+        return True
 
-l2 = ListNode(1)
-l2.next = ListNode(3)
-l2.next.next = ListNode(4)
-
-print(x.mergeTwoLists(l1, l2))
+s = Solution()
+print(s.isValid("()"))
+print(s.isValid("()[]{}"))
+print(s.isValid("(]"))
+print(s.isValid("([)]"))
+print(s.isValid("{[]}"))
+print(s.isValid("(("))
