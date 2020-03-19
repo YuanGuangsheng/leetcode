@@ -21,6 +21,6 @@ class Solution:
 
 s = Solution()
 print(s.reverse(123))
-print(s.reverse(-123))
-print(s.reverse(120))
-print(s.reverse(1534236469))
+# print(s.reverse(-123))
+# print(s.reverse(120))
+# print(s.reverse(1534236469))

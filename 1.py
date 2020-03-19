@@ -1,14 +1,17 @@
 class Solution:
     def twoSum(self, nums, target):
-        n = len(nums)
-        for i in range(n):
-            for j in range(i+1,n):
-                if i == j:
-                    continue
-                if nums[i]+nums[j] == target:
-                    return [i,j]
+        lens = len(nums)
+        j = -1
+        for i in range(1, lens):
+            temp = nums[:i]
+            if (target - nums[i]) in temp:
+                j = temp.index(target - nums[i])
+                break
+        if j >= 0:
+            return [j, i]
 
 
 s = Solution()
-result = s.twoSum([2,5,5,11], 10)
-print(result)
+nums = [2,5,5,11]
+target = 10
+print(s.twoSum(nums, target))
